@@ -123,6 +123,7 @@
     {% if content.schedule and content.schedule|length > 0 %}
     <section id="schedule">
       <h2 class="reveal" data-km="របៀបវារៈកម្មវិធី" data-en="Program Schedule">របៀបវារៈកម្មវិធី</h2>
+      <p class="schedule-subtitle reveal">កម្មវិធី {{ content.event.date_km }}</p>
       <div class="schedule-list">
         {% for item in content.schedule %}
         <div class="schedule-item reveal">

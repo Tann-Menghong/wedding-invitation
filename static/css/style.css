@@ -396,14 +396,23 @@ section h2.left {
 }
 
 .schedule-item .time {
-  font-weight: 700;
+  font-weight: 400;
   color: var(--gold);
   font-size: 14px;
 }
 
 .schedule-item .title {
+  font-weight: 400;
   font-size: 14px;
   color: var(--green-dark);
+}
+
+.schedule-subtitle {
+  font-weight: 400;
+  color: var(--gold);
+  font-size: 13px;
+  margin-top: -8px;
+  margin-bottom: 8px;
 }
 
 /* ---------- Location ---------- */
