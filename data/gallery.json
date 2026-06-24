@@ -1,0 +1,26 @@
+[
+  {
+    "id": "g1",
+    "filename": "gallery_1.jpg",
+    "path": "/static/uploads/gallery_1.jpg",
+    "uploaded_at": "2026-06-24T00:00:00"
+  },
+  {
+    "id": "g2",
+    "filename": "gallery_2.jpg",
+    "path": "/static/uploads/gallery_2.jpg",
+    "uploaded_at": "2026-06-24T00:00:00"
+  },
+  {
+    "id": "g3",
+    "filename": "gallery_3.jpg",
+    "path": "/static/uploads/gallery_3.jpg",
+    "uploaded_at": "2026-06-24T00:00:00"
+  },
+  {
+    "id": "g4",
+    "filename": "gallery_4.jpg",
+    "path": "/static/uploads/gallery_4.jpg",
+    "uploaded_at": "2026-06-24T00:00:00"
+  }
+]

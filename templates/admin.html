@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin – Wedding Invitation</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body style="background:#f3f4f6;">
+
+{% if not authenticated %}
+  <div class="admin-login">
+    <h2 style="text-align:center;">🔐 Admin Login</h2>
+    <form method="post" action="/admin/login">
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit" style="width:100%;">ចូល / Login</button>
+    </form>
+  </div>
+{% else %}
+  <div class="admin-wrap">
+    <div class="admin-topbar">
+      <h2 style="margin:0;">Admin Dashboard</h2>
+      <form method="post" action="/admin/logout">
+        <button type="submit" class="btn">Logout</button>
+      </form>
+    </div>
+
+    <!-- Hero -->
+    <div class="admin-section">
+      <h3>Hero / Cover</h3>
+      <form class="content-form">
+        <label>Title (Khmer)</label>
+        <input type="text" name="hero.title_km" value="{{ content.hero.title_km }}" />
+        <label>Title (English)</label>
+        <input type="text" name="hero.title_en" value="{{ content.hero.title_en }}" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+      <hr />
+      <form class="upload-form" data-endpoint="/api/upload/hero">
+        <label>Hero background photo</label>
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload</button>
+      </form>
+      {% if content.hero.hero_image %}<img src="{{ content.hero.hero_image }}" style="margin-top:10px; max-width:160px; border-radius:8px;" />{% endif %}
+      <hr />
+      <form class="upload-form" data-endpoint="/api/upload/music">
+        <label>Background music (mp3)</label>
+        <input type="file" name="file" accept="audio/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload</button>
+      </form>
+    </div>
+
+    <!-- Couple -->
+    <div class="admin-section">
+      <h3>Couple</h3>
+      <form class="content-form">
+        <div class="admin-grid-2">
+          <div>
+            <label>Groom label (Khmer)</label>
+            <input type="text" name="couple.groom_label_km" value="{{ content.couple.groom_label_km }}" />
+            <label>Groom name (Khmer)</label>
+            <input type="text" name="couple.groom_km" value="{{ content.couple.groom_km }}" />
+            <label>Groom name (English)</label>
+            <input type="text" name="couple.groom_en" value="{{ content.couple.groom_en }}" />
+          </div>
+          <div>
+            <label>Bride label (Khmer)</label>
+            <input type="text" name="couple.bride_label_km" value="{{ content.couple.bride_label_km }}" />
+            <label>Bride name (Khmer)</label>
+            <input type="text" name="couple.bride_km" value="{{ content.couple.bride_km }}" />
+            <label>Bride name (English)</label>
+            <input type="text" name="couple.bride_en" value="{{ content.couple.bride_en }}" />
+          </div>
+        </div>
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Invitation text -->
+    <div class="admin-section">
+      <h3>Invitation Text</h3>
+      <form class="content-form">
+        <label>Greeting (Khmer)</label>
+        <input type="text" name="invitation.greeting_km" value="{{ content.invitation.greeting_km }}" />
+        <label>Sub-greeting (Khmer)</label>
+        <input type="text" name="invitation.subgreeting_km" value="{{ content.invitation.subgreeting_km }}" />
+        <label>Invitation body (Khmer)</label>
+        <textarea name="invitation.body_km">{{ content.invitation.body_km }}</textarea>
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Default guest name -->
+    <div class="admin-section">
+      <h3>Default Guest Name</h3>
+      <form class="content-form">
+        <label>Shown when no guest name is in the link (?name=...)</label>
+        <input type="text" name="guest.default_name_km" value="{{ content.guest.default_name_km }}" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Event date/time + venue -->
+    <div class="admin-section">
+      <h3>Date, Time & Venue</h3>
+      <form class="content-form">
+        <label>Date (Khmer display)</label>
+        <input type="text" name="event.date_km" value="{{ content.event.date_km }}" />
+        <label>Time (Khmer display)</label>
+        <input type="text" name="event.time_km" value="{{ content.event.time_km }}" />
+        <label>Exact date/time (used for countdown + calendar) — format: YYYY-MM-DDTHH:MM:SS</label>
+        <input type="text" name="event.datetime_iso" value="{{ content.event.datetime_iso }}" />
+        <label>Venue name (Khmer)</label>
+        <input type="text" name="venue.name_km" value="{{ content.venue.name_km }}" />
+        <label>Google Maps link (optional, full URL)</label>
+        <input type="text" name="venue.map_link" value="{{ content.venue.map_link }}" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Schedule -->
+    <div class="admin-section">
+      <h3>Program Schedule</h3>
+      <div id="schedule-rows">
+        {% for item in content.schedule %}
+        <div class="admin-row-item">
+          <input type="text" class="sched-time" placeholder="Time" value="{{ item.time_km }}" />
+          <input type="text" class="sched-title" placeholder="Activity" value="{{ item.title_km }}" />
+          <button type="button" class="remove" onclick="this.parentElement.remove()">✕</button>
+        </div>
+        {% endfor %}
+      </div>
+      <button type="button" class="btn" id="add-schedule-row" style="margin-top:10px;">+ Add item</button>
+      <br />
+      <button type="button" class="btn" id="save-schedule" style="margin-top:14px;">Save schedule</button>
+    </div>
+
+    <!-- Gallery -->
+    <div class="admin-section">
+      <h3>Gallery Photos</h3>
+      <form class="upload-form" data-endpoint="/api/gallery/upload" id="gallery-upload-form">
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Add photo</button>
+      </form>
+      <div class="admin-gallery-grid" id="gallery-grid" style="margin-top:14px;">
+        {% for photo in gallery %}
+        <div class="thumb" data-id="{{ photo.id }}">
+          <img src="{{ photo.path }}" />
+          <button onclick="deleteGalleryPhoto('{{ photo.id }}')">✕</button>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- KHQR -->
+    <div class="admin-section">
+      <h3>KHQR Gift Codes</h3>
+      <form class="upload-form" data-endpoint="/api/upload/qr-usd">
+        <label>USD QR code image</label>
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload USD QR</button>
+      </form>
+      {% if content.qr.usd_image %}<img src="{{ content.qr.usd_image }}" style="margin-top:10px; max-width:120px; border-radius:8px;" />{% endif %}
+      <hr />
+      <form class="upload-form" data-endpoint="/api/upload/qr-khr">
+        <label>Riel (KHR) QR code image</label>
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload KHR QR</button>
+      </form>
+      {% if content.qr.khr_image %}<img src="{{ content.qr.khr_image }}" style="margin-top:10px; max-width:120px; border-radius:8px;" />{% endif %}
+    </div>
+
+    <!-- Map image fallback -->
+    <div class="admin-section">
+      <h3>Map Image (optional static fallback)</h3>
+      <form class="upload-form" data-endpoint="/api/upload/map">
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload</button>
+      </form>
+    </div>
+
+    <!-- Thank you -->
+    <div class="admin-section">
+      <h3>Thank You Message</h3>
+      <form class="content-form">
+        <label>Title (Khmer)</label>
+        <input type="text" name="thanks.title_km" value="{{ content.thanks.title_km }}" />
+        <label>Body (Khmer)</label>
+        <textarea name="thanks.body_km">{{ content.thanks.body_km }}</textarea>
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="admin-section">
+      <h3>Footer Credit</h3>
+      <form class="content-form">
+        <input type="text" name="footer.credit_km" value="{{ content.footer.credit_km }}" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Guestbook messages -->
+    <div class="admin-section">
+      <h3>Guestbook Messages ({{ messages|length }})</h3>
+      <div id="messages-list">
+        {% for msg in messages %}
+        <div class="admin-msg-item" data-id="{{ msg.id }}">
+          <div>
+            <strong>{{ msg.name }}</strong> — {{ msg.message }}
+            <div class="meta">{{ msg.date }} · {{ msg.status or 'attend' }}</div>
+          </div>
+          <button onclick="deleteMessage('{{ msg.id }}')" class="admin-row-item remove" style="background:#f43f5e;color:#fff;border:none;border-radius:6px;padding:6px 10px;">✕</button>
+        </div>
+        {% else %}
+        <p>No messages yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="save-toast" id="save-toast">Saved!</div>
+
+  <script>
+    function showToast(text) {
+      const t = document.getElementById("save-toast");
+      t.textContent = text || "Saved!";
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 1800);
+    }
+
+    document.querySelectorAll(".content-form").forEach((form) => {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const res = await fetch("/api/content", { method: "POST", body: fd });
+        if (res.ok) showToast("Saved!");
+        else showToast("Error saving");
+      });
+    });
+
+    document.querySelectorAll(".upload-form").forEach((form) => {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const endpoint = form.dataset.endpoint;
+        const fd = new FormData(form);
+        const res = await fetch(endpoint, { method: "POST", body: fd });
+        if (res.ok) {
+          showToast("Uploaded!");
+          if (endpoint === "/api/gallery/upload") {
+            const data = await res.json();
+            addGalleryThumb(data.photo);
+            form.reset();
+          } else {
+            setTimeout(() => location.reload(), 700);
+          }
+        } else {
+          showToast("Upload failed");
+        }
+      });
+    });
+
+    function addGalleryThumb(photo) {
+      const grid = document.getElementById("gallery-grid");
+      const div = document.createElement("div");
+      div.className = "thumb";
+      div.dataset.id = photo.id;
+      div.innerHTML = `<img src="${photo.path}" /><button onclick="deleteGalleryPhoto('${photo.id}')">✕</button>`;
+      grid.appendChild(div);
+    }
+
+    async function deleteGalleryPhoto(id) {
+      if (!confirm("Delete this photo?")) return;
+      const res = await fetch(`/api/gallery/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        document.querySelector(`.thumb[data-id="${id}"]`)?.remove();
+        showToast("Deleted");
+      }
+    }
+
+    async function deleteMessage(id) {
+      if (!confirm("Delete this message?")) return;
+      const res = await fetch(`/api/messages/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        document.querySelector(`.admin-msg-item[data-id="${id}"]`)?.remove();
+        showToast("Deleted");
+      }
+    }
+
+    document.getElementById("add-schedule-row").addEventListener("click", () => {
+      const row = document.createElement("div");
+      row.className = "admin-row-item";
+      row.innerHTML = `<input type="text" class="sched-time" placeholder="Time" /><input type="text" class="sched-title" placeholder="Activity" /><button type="button" class="remove" onclick="this.parentElement.remove()">✕</button>`;
+      document.getElementById("schedule-rows").appendChild(row);
+    });
+
+    document.getElementById("save-schedule").addEventListener("click", async () => {
+      const rows = document.querySelectorAll("#schedule-rows .admin-row-item");
+      const schedule = Array.from(rows)
+        .map((row) => ({
+          time_km: row.querySelector(".sched-time").value.trim(),
+          title_km: row.querySelector(".sched-title").value.trim(),
+        }))
+        .filter((item) => item.time_km || item.title_km);
+      const res = await fetch("/api/content/schedule", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ schedule }),
+      });
+      if (res.ok) showToast("Schedule saved!");
+      else showToast("Error saving schedule");
+    });
+  </script>
+{% endif %}
+</body>
+</html>
