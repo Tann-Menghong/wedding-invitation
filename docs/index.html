@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>អាពាហ៍ពិពាហ៍ តាន់ ម៉េងហុង & អ៊ុក សុខា</title>
+  <meta name="description" content="សូមគោរពអញ្ជើញ តាន់ ម៉េងហុង និង អ៊ុក សុខា" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <div class="floating-controls">
+    <button class="pill-btn" id="lang-toggle">EN</button>
+    <button class="pill-btn" id="music-toggle">♪ Play</button>
+  </div>
+
+  <div class="page">
+
+    <!-- ===== Cover / Hero ===== -->
+    <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80');">
+      <h1 class="khmer-title" data-km="សិរីមង្គលអាពាហ៍ពិពាហ៍" data-en="Wedding Ceremony">សិរីមង្គលអាពាហ៍ពិពាហ៍</h1>
+
+      <div class="names-row khmer-title">
+        <span>តាន់ ម៉េងហុង</span>
+        <span style="font-family: 'Noto Sans Khmer', sans-serif; font-size: 15px;">និង</span>
+        <span>អ៊ុក សុខា</span>
+      </div>
+
+      <p class="greeting khmer-title" data-km="សូមគោរពអញ្ជើញ" data-en="You are cordially invited">សូមគោរពអញ្ជើញ</p>
+
+      <div class="guest-frame khmer-title" role="img" aria-label="Guest name">
+        <span id="guest-name">ភ្ញៀវកិត្តិយស</span>
+      </div>
+
+      <p class="event-datetime" data-km="ថ្ងៃសៅរ៍ ទី២៦ ខែធ្នូ ឆ្នាំ២០២៦ វេលាម៉ោង ៥:០០ ល្ងាច" data-en="Saturday, 26 December 2026, 5:00 PM">
+        ថ្ងៃសៅរ៍ ទី២៦ ខែធ្នូ ឆ្នាំ២០២៦ វេលាម៉ោង ៥:០០ ល្ងាច
+      </p>
+
+      <div class="scroll-indicator">
+        <img src="./img/scroll.gif" alt="scroll down" />
+        <div>
+          <div data-km="សូមអូសចុះក្រោម" data-en="Scroll down">សូមអូសចុះក្រោម</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Couple / Invitation body ===== -->
+    <section id="invitation">
+      <div class="couple-row reveal">
+        <div class="couple-col">
+          <div class="label">កូនប្រុស</div>
+          <div class="name">តាន់ ម៉េងហុង</div>
+        </div>
+        <img class="heart" src="./img/heartgold.png" alt="heart" />
+        <div class="couple-col">
+          <div class="label">កូនស្រី</div>
+          <div class="name">អ៊ុក សុខា</div>
+        </div>
+      </div>
+
+      <h2 class="reveal" data-km="យើងខ្ញុំមានកិត្តិយសសូមគោរពអញ្ជើញ" data-en="With great honor, we invite you">យើងខ្ញុំមានកិត្តិយសសូមគោរពអញ្ជើញ</h2>
+      <p class="invitation-body reveal">សម្តេច ទ្រង់ ឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាង កញ្ញា ព្រមទាំងប្រិយមិត្តអញ្ជើញចូលរួមជាអធិបតី និងជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធិពរជ័យសិរីសួស្តី ជ័យមង្គល ក្នុងពិធីអាពាហ៍ពិពាហ៍ កូនប្រុសស្រី របស់យើងខ្ញុំទាំងពីរ។</p>
+      <img class="divider-img reveal" src="./img/underline-kbach-2.png" alt="" />
+    </section>
+
+    <!-- ===== Countdown ===== -->
+    <section>
+      <div class="countdown-wrap reveal zoom">
+        <h2 data-km="ចំនួនថ្ងៃរាប់ថយក្រោយ" data-en="Counting down">ចំនួនថ្ងៃរាប់ថយក្រោយ</h2>
+        <p>ថ្ងៃសៅរ៍ ទី២៦ ខែធ្នូ ឆ្នាំ២០២៦ វេលាម៉ោង ៥:០០ ល្ងាច</p>
+        <div class="countdown-grid" id="countdown" data-target="2026-12-26T17:00:00">
+          <div class="countdown-box"><span class="num" id="cd-days">០</span><span class="unit">ថ្ងៃ</span></div>
+          <div class="countdown-box"><span class="num" id="cd-hours">០</span><span class="unit">ម៉ោង</span></div>
+          <div class="countdown-box"><span class="num" id="cd-mins">០</span><span class="unit">នាទី</span></div>
+          <div class="countdown-box"><span class="num" id="cd-secs">០</span><span class="unit">វិនាទី</span></div>
+        </div>
+      </div>
+      <button class="btn-gold reveal" id="add-calendar"
+        data-datetime="2026-12-26T17:00:00"
+        data-title="អាពាហ៍ពិពាហ៍ តាន់ ម៉េងហុង & អ៊ុក សុខា"
+        data-location="ភូមិទួលដំណាក់">
+        កត់ចូលក្នុងប្រតិទិនអ្នក
+      </button>
+    </section>
+
+    <!-- ===== Schedule ===== -->
+    <section id="schedule">
+      <h2 class="reveal" data-km="របៀបវារៈកម្មវិធី" data-en="Program Schedule">របៀបវារៈកម្មវិធី</h2>
+      <div class="schedule-list">
+        <div class="schedule-item reveal">
+          <span class="time">៦:០០ ព្រឹក</span>
+          <span class="title">ពិធីប្រពិសាមង្គល</span>
+        </div>
+        <div class="schedule-item reveal">
+          <span class="time">៥:០០ ល្ងាច</span>
+          <span class="title">ពិធីជប់លៀងអាពាហ៍ពិពាហ៍</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Location ===== -->
+    <section id="location">
+      <h2 class="reveal" data-km="ទីតាំងកម្មវិធី" data-en="Venue">ទីតាំងកម្មវិធី</h2>
+      <p class="reveal">ភូមិទួលដំណាក់</p>
+      <a class="btn-gold reveal" style="margin-top:16px; display:inline-flex;"
+         href="https://www.google.com/maps?q=%E1%9E%97%E1%9E%BC%E1%9E%98%E1%9E%B7%E1%9E%91%E1%9E%BD%E1%9E%9B%E1%9E%8A%E1%9F%86%E1%9E%8E%E1%9E%B6%E1%9E%80%E1%9F%8B"
+         target="_blank" rel="noopener noreferrer">
+        មើលក្នុង Google Map
+      </a>
+    </section>
+
+    <!-- ===== Gallery ===== -->
+    <section id="gallery">
+      <h2 class="reveal" data-km="កម្រងរូបភាព" data-en="Photo Gallery">កម្រងរូបភាព</h2>
+      <div class="gallery-grid">
+        <img class="reveal" src="./img/gallery_1.jpg" alt="Photo" loading="lazy" />
+        <img class="reveal" src="./img/gallery_2.jpg" alt="Photo" loading="lazy" />
+        <img class="reveal" src="./img/gallery_3.jpg" alt="Photo" loading="lazy" />
+        <img class="reveal" src="./img/gallery_4.jpg" alt="Photo" loading="lazy" />
+      </div>
+      <img class="divider-img reveal" src="./img/underline-kbach-2.png" alt="" />
+    </section>
+    <div class="lightbox" id="lightbox">
+      <img id="lightbox-img" src="" alt="" />
+    </div>
+
+    <!-- ===== Thank you ===== -->
+    <section>
+      <h2 class="reveal" data-km="សូមអរគុណ និងសូមអភ័យទោស" data-en="Thank You">សូមអរគុណ និងសូមអភ័យទោស</h2>
+      <p class="invitation-body reveal">យើងខ្ញុំទាំងពីរ សូមថ្លែងអំណរគុណ យ៉ាងជ្រាលជ្រៅ ចំពោះវត្តមាន ដ៏ឧត្តុង្គឧត្តមរបស់ សម្តេច ឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាង កញ្ញា ដែលបាន អញ្ជើញចូលរួមជាកិត្តិយស ក្នុងពិធីសិរីសួស្តីអាពាហ៍ពិពាហ៍ របស់យើងខ្ញុំ នាពេលខាងមុខនេះ។ យើងខ្ញុំសូមអភ័យទោស ដែលពុំបានជូនលិខិតអញ្ជើញដោយផ្ទាល់។</p>
+    </section>
+
+    <!-- ===== KHQR ===== -->
+    <section id="khqr">
+      <h2 class="reveal" data-km="ចងដៃតាមរយៈ KHQR" data-en="Gift via KHQR">ចងដៃតាមរយៈ KHQR</h2>
+      <div class="qr-toggle reveal">
+        <button id="qr-usd-btn" class="active">USD</button>
+        <button id="qr-khr-btn">រៀល</button>
+      </div>
+      <div class="qr-image-wrap reveal">
+        <img id="qr-image" src="./img/qr_usd.png"
+             data-usd="./img/qr_usd.png"
+             data-khr="" alt="KHQR" />
+      </div>
+    </section>
+
+    <!-- ===== RSVP / Wishes ===== -->
+    <section id="messages">
+      <h2 class="reveal" data-km="សារជូនពរ" data-en="Wishes">សារជូនពរ</h2>
+      <div class="rsvp-card reveal">
+        <h2 style="font-size:16px;" data-km="បញ្ជាក់ពីវត្តមានអ្នក" data-en="Confirm your attendance">បញ្ជាក់ពីវត្តមានអ្នក</h2>
+        <form id="rsvp-form" data-contact-email="">
+          <input type="hidden" id="rsvp-status" name="status" value="attend" />
+          <div class="rsvp-toggle">
+            <button type="button" id="rsvp-attend">✓ ចូលរួម</button>
+            <button type="button" id="rsvp-decline">✗ បដិសេធ</button>
+          </div>
+          <input type="text" name="name" placeholder="ឈ្មោះអ្នក" required />
+          <textarea name="message" rows="4" placeholder="សារជូនពរ" required></textarea>
+          <div class="error-text" id="rsvp-error"></div>
+          <button type="submit" class="btn-gold" style="width:100%;">ផ្ញើសារ</button>
+        </form>
+        <p style="font-size:11px; opacity:0.7; margin-top:8px;">* ការផ្ញើសារនេះនឹងបើកកម្មវិធីអ៊ីមែលរបស់អ្នក (no live server on this static page)</p>
+      </div>
+
+      <div class="wishes-wall" id="wishes-wall">
+        <div class="empty-wishes" id="empty-wishes">មិនទាន់មានសារជូនពរ</div>
+      </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+      <div class="credit khmer-title reveal" data-km="រចនាធៀបការឌីជិថល ដោយ" data-en="Digital invitation by">រចនាធៀបការឌីជិថល ដោយ</div>
+      <div class="social-row reveal">
+        <a href="#" aria-label="Telegram">✈</a>
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">◎</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

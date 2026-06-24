@@ -6,6 +6,12 @@
       "runtimeExecutable": ".venv/Scripts/uvicorn.exe",
       "runtimeArgs": ["app:app", "--host", "127.0.0.1", "--port", "7861"],
       "port": 7861
+    },
+    {
+      "name": "wedding-static",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8862", "--directory", "docs"],
+      "port": 8862
     }
   ]
 }
