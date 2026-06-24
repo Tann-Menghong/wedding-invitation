@@ -72,6 +72,30 @@
             <input type="text" name="couple.bride_en" value="{{ content.couple.bride_en }}" />
           </div>
         </div>
+        <label>Monogram (shown as a badge, e.g. "M & S")</label>
+        <input type="text" name="couple.monogram" value="{{ content.couple.monogram }}" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Parents -->
+    <div class="admin-section">
+      <h3>Parents</h3>
+      <form class="content-form">
+        <div class="admin-grid-2">
+          <div>
+            <label>Groom's father (Khmer)</label>
+            <input type="text" name="parents.groom_father_km" value="{{ content.parents.groom_father_km }}" />
+            <label>Groom's mother (Khmer)</label>
+            <input type="text" name="parents.groom_mother_km" value="{{ content.parents.groom_mother_km }}" />
+          </div>
+          <div>
+            <label>Bride's father (Khmer)</label>
+            <input type="text" name="parents.bride_father_km" value="{{ content.parents.bride_father_km }}" />
+            <label>Bride's mother (Khmer)</label>
+            <input type="text" name="parents.bride_mother_km" value="{{ content.parents.bride_mother_km }}" />
+          </div>
+        </div>
         <button type="submit" class="btn" style="margin-top:14px;">Save</button>
       </form>
     </div>
@@ -110,6 +134,20 @@
         <input type="text" name="event.time_km" value="{{ content.event.time_km }}" />
         <label>Exact date/time (used for countdown + calendar) — format: YYYY-MM-DDTHH:MM:SS</label>
         <input type="text" name="event.datetime_iso" value="{{ content.event.datetime_iso }}" />
+        <label>Save-the-date: day name (e.g. "ថ្ងៃ សៅរ៍")</label>
+        <input type="text" name="event.day_name_km" value="{{ content.event.day_name_km }}" />
+        <div class="admin-grid-2">
+          <div>
+            <label>Save-the-date: day number (e.g. "២៦")</label>
+            <input type="text" name="event.day_number_km" value="{{ content.event.day_number_km }}" />
+          </div>
+          <div>
+            <label>Save-the-date: short time (e.g. "ម៉ោង ៥ ល្ងាច")</label>
+            <input type="text" name="event.time_short_km" value="{{ content.event.time_short_km }}" />
+          </div>
+        </div>
+        <label>Save-the-date: month + year (e.g. "ធ្នូ ២០២៦")</label>
+        <input type="text" name="event.month_year_km" value="{{ content.event.month_year_km }}" />
         <label>Venue name (Khmer)</label>
         <input type="text" name="venue.name_km" value="{{ content.venue.name_km }}" />
         <label>Google Maps link (optional, full URL)</label>

@@ -51,6 +51,21 @@
 
     <!-- ===== Couple / Invitation body ===== -->
     <section id="invitation">
+      {% if content.parents %}
+      <div class="parents-row reveal">
+        <div class="parents-col">
+          <div class="side-label">ឪពុកម្តាយកូនប្រុស</div>
+          <div class="parent-name">{{ content.parents.groom_father_km }}</div>
+          <div class="parent-name">{{ content.parents.groom_mother_km }}</div>
+        </div>
+        <div class="parents-col">
+          <div class="side-label">ឪពុកម្តាយកូនស្រី</div>
+          <div class="parent-name">{{ content.parents.bride_father_km }}</div>
+          <div class="parent-name">{{ content.parents.bride_mother_km }}</div>
+        </div>
+      </div>
+      {% endif %}
+
       <div class="couple-row reveal">
         <div class="couple-col">
           <div class="label">{{ content.couple.groom_label_km }}</div>
@@ -63,8 +78,24 @@
         </div>
       </div>
 
+      {% if content.couple.monogram %}
+      <div class="monogram-badge reveal">
+        <div class="ring">{{ content.couple.monogram }}</div>
+      </div>
+      {% endif %}
+
       <h2 class="reveal" data-km="{{ content.invitation.subgreeting_km }}" data-en="With great honor, we invite you">{{ content.invitation.subgreeting_km }}</h2>
       <p class="invitation-body reveal">{{ content.invitation.body_km }}</p>
+
+      {% if content.event.day_name_km %}
+      <div class="save-the-date reveal">
+        <span class="day-name">{{ content.event.day_name_km }}</span>
+        <span class="day-number">{{ content.event.day_number_km }}</span>
+        <span class="time-short">{{ content.event.time_short_km }}</span>
+      </div>
+      <div class="save-the-date-month reveal">{{ content.event.month_year_km }}</div>
+      {% endif %}
+
       <img class="divider-img reveal" src="/static/uploads/underline-kbach-2.png" alt="" />
     </section>
 
@@ -98,6 +129,7 @@
           <span class="time">{{ item.time_km }}</span>
           <span class="title">{{ item.title_km }}</span>
         </div>
+        {% if not loop.last %}<div class="flourish-divider">❖ ⋆ ❖</div>{% endif %}
         {% endfor %}
       </div>
     </section>

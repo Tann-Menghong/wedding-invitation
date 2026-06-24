@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Moul&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Battambang:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Moul&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Battambang:wght@400;700&family=Great+Vibes&display=swap");
 
 :root {
   --gold: #b08e4f;
@@ -221,6 +221,102 @@ section .invitation-body {
 
 section h2.left {
   font-size: 17px;
+}
+
+/* ---------- Parents row ---------- */
+.parents-row {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.parents-col {
+  flex: 1;
+  text-align: center;
+}
+
+.parents-col .side-label {
+  font-family: "Moul", sans-serif;
+  font-size: 13px;
+  color: var(--gold-light);
+  margin-bottom: 6px;
+}
+
+.parents-col .parent-name {
+  font-size: 14px;
+  color: var(--green-dark);
+  line-height: 1.6;
+}
+
+/* ---------- Monogram badge ---------- */
+.monogram-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px auto 18px;
+}
+
+.monogram-badge .ring {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: rgba(176, 142, 79, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Great Vibes", "Moul", cursive, sans-serif;
+  font-size: 26px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+/* ---------- Save-the-date block ---------- */
+.save-the-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 18px 0;
+}
+
+.save-the-date .day-name {
+  font-size: 14px;
+  color: var(--green-dark);
+  border-bottom: 2px solid var(--green-dark);
+  padding-bottom: 4px;
+}
+
+.save-the-date .day-number {
+  font-family: "Moul", sans-serif;
+  font-size: 44px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.save-the-date .time-short {
+  font-size: 14px;
+  color: var(--green-dark);
+  border-bottom: 2px solid var(--green-dark);
+  padding-bottom: 4px;
+}
+
+.save-the-date-month {
+  text-align: center;
+  font-size: 14px;
+  color: var(--green-dark);
+  margin-top: -4px;
+}
+
+/* ---------- Flourish divider (schedule items) ---------- */
+.flourish-divider {
+  text-align: center;
+  color: var(--gold-light);
+  font-size: 13px;
+  letter-spacing: 4px;
+  margin: 8px 0;
+  opacity: 0.7;
 }
 
 /* ---------- Countdown ---------- */

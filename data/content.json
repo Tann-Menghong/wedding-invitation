@@ -11,7 +11,14 @@
     "bride_km": "អ៊ុក សុខា",
     "bride_en": "Ouk Sokha",
     "groom_label_km": "កូនប្រុស",
-    "bride_label_km": "កូនស្រី"
+    "bride_label_km": "កូនស្រី",
+    "monogram": "M & S"
+  },
+  "parents": {
+    "groom_father_km": "លោក តាន់ សុភាព",
+    "groom_mother_km": "អ្នកស្រី ចាន់ សុជាតា",
+    "bride_father_km": "លោក អ៊ុក សុវណ្ណ",
+    "bride_mother_km": "អ្នកស្រី ម៉ែន សុគន្ធា"
   },
   "guest": {
     "default_name_km": "ភ្ញៀវកិត្តិយស"
@@ -24,7 +31,11 @@
   "event": {
     "date_km": "ថ្ងៃសៅរ៍ ទី២៦ ខែធ្នូ ឆ្នាំ២០២៦",
     "time_km": "វេលាម៉ោង ៥:០០ ល្ងាច",
-    "datetime_iso": "2026-12-26T17:00:00"
+    "datetime_iso": "2026-12-26T17:00:00",
+    "day_name_km": "ថ្ងៃ សៅរ៍",
+    "day_number_km": "២៦",
+    "month_year_km": "ធ្នូ ២០២៦",
+    "time_short_km": "ម៉ោង ៥ ល្ងាច"
   },
   "venue": {
     "name_km": "ភូមិទួលដំណាក់",
