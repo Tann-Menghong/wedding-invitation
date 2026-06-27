@@ -18,14 +18,20 @@
     "groom_father_km": "លោក តាន់ សុភាព",
     "groom_mother_km": "អ្នកស្រី ចាន់ សុជាតា",
     "bride_father_km": "លោក អ៊ុក សុវណ្ណ",
-    "bride_mother_km": "អ្នកស្រី ម៉ែន សុគន្ធា"
+    "bride_mother_km": "អ្នកស្រី ម៉ែន សុគន្ធា",
+    "groom_side_label_km": "ឪពុកម្តាយកូនប្រុស",
+    "groom_side_label_en": "Groom's Parents",
+    "bride_side_label_km": "ឪពុកម្តាយកូនស្រី",
+    "bride_side_label_en": "Bride's Parents"
   },
   "guest": {
     "default_name_km": "ភ្ញៀវកិត្តិយស"
   },
   "invitation": {
     "greeting_km": "សូមគោរពអញ្ជើញ",
+    "greeting_en": "You are cordially invited",
     "subgreeting_km": "យើងខ្ញុំមានកិត្តិយសសូមគោរពអញ្ជើញ",
+    "subgreeting_en": "With great honor, we invite you",
     "body_km": "សម្តេច ទ្រង់ ឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាង កញ្ញា ព្រមទាំងប្រិយមិត្តអញ្ជើញចូលរួមជាអធិបតី និងជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធិពរជ័យសិរីសួស្តី ជ័យមង្គល ក្នុងពិធីអាពាហ៍ពិពាហ៍ កូនប្រុសស្រី របស់យើងខ្ញុំទាំងពីរ។"
   },
   "event": {
@@ -45,6 +51,7 @@
   },
   "thanks": {
     "title_km": "សូមអរគុណ និងសូមអភ័យទោស",
+    "title_en": "Thank You",
     "body_km": "យើងខ្ញុំទាំងពីរ សូមថ្លែងអំណរគុណ យ៉ាងជ្រាលជ្រៅ ចំពោះវត្តមាន ដ៏ឧត្តុង្គឧត្តមរបស់ សម្តេច ឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាង កញ្ញា ដែលបាន អញ្ជើញចូលរួមជាកិត្តិយស ក្នុងពិធីសិរីសួស្តីអាពាហ៍ពិពាហ៍ របស់យើងខ្ញុំ នាពេលខាងមុខនេះ។ យើងខ្ញុំសូមអភ័យទោស ដែលពុំបានជូនលិខិតអញ្ជើញដោយផ្ទាល់។"
   },
   "qr": {
@@ -60,5 +67,40 @@
     { "time_km": "វេលាម៉ោង ១០:៣០ ព្រឹក", "title_km": "ពិធីបង្ហួលពិល សំពះផ្ដើមសែនជន់ដៃ" },
     { "time_km": "វេលាម៉ោង ១១:៣០ ព្រឹក", "title_km": "អញ្ជើញភ្ញៀវពិសាអាហារថ្ងៃត្រង់" },
     { "time_km": "វេលាម៉ោង ០៥:០០ ល្ងាច", "title_km": "ជប់លៀងភ្ញៀវកិត្តិយសពិសាគោជាហារ" }
-  ]
+  ],
+  "ui": {
+    "event_title_prefix_km": "អាពាហ៍ពិពាហ៍",
+    "names_conjunction_km": "និង",
+    "names_conjunction_en": "and",
+    "scroll_hint_km": "សូមអូសចុះក្រោម",
+    "scroll_hint_en": "Scroll down",
+    "countdown_title_km": "ចំនួនថ្ងៃរាប់ថយក្រោយ",
+    "countdown_title_en": "Counting down",
+    "add_calendar_km": "កត់ចូលក្នុងប្រតិទិនអ្នក",
+    "add_calendar_en": "Add to your calendar",
+    "schedule_title_km": "របៀបវារៈកម្មវិធី",
+    "schedule_title_en": "Program Schedule",
+    "schedule_subtitle_prefix_km": "កម្មវិធី",
+    "schedule_subtitle_prefix_en": "Schedule for",
+    "venue_title_km": "ទីតាំងកម្មវិធី",
+    "venue_title_en": "Venue",
+    "map_button_km": "មើលក្នុង Google Map",
+    "map_button_en": "View on Google Map",
+    "gallery_title_km": "កម្រងរូបភាព",
+    "gallery_title_en": "Photo Gallery",
+    "khqr_title_km": "ចងដៃតាមរយៈ KHQR",
+    "khqr_title_en": "Gift via KHQR",
+    "khqr_riel_label_km": "រៀល",
+    "wishes_title_km": "សារជូនពរ",
+    "wishes_title_en": "Wishes",
+    "rsvp_attend_km": "✓ ចូលរួម",
+    "rsvp_decline_km": "✗ បដិសេធ",
+    "rsvp_name_placeholder_km": "ឈ្មោះអ្នក",
+    "rsvp_message_placeholder_km": "សារជូនពរ",
+    "rsvp_submit_km": "ផ្ញើសារ",
+    "rsvp_error_required_km": "សូមបញ្ចូលឈ្មោះ និងសារជូនពរ",
+    "rsvp_error_failed_km": "មិនអាចផ្ញើបានទេ សូមព្យាយាមម្តងទៀត",
+    "empty_wishes_km": "មិនទាន់មានសារជូនពរ",
+    "empty_wishes_en": "No wishes yet"
+  }
 }

@@ -159,7 +159,7 @@ function initRsvpForm() {
     const name = form.querySelector("[name='name']").value.trim();
     const message = form.querySelector("[name='message']").value.trim();
     if (!name || !message) {
-      errorEl.textContent = "សូមបញ្ចូលឈ្មោះ និងសារជូនពរ";
+      errorEl.textContent = form.dataset.msgRequired;
       return;
     }
     try {
@@ -174,7 +174,7 @@ function initRsvpForm() {
       form.reset();
       statusInput.value = status;
     } catch (err) {
-      errorEl.textContent = "មិនអាចផ្ញើបានទេ សូមព្យាយាមម្តងទៀត";
+      errorEl.textContent = form.dataset.msgFailed;
     }
   });
 }

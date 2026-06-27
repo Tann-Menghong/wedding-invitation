@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>អាពាហ៍ពិពាហ៍ {{ content.couple.groom_km }} & {{ content.couple.bride_km }}</title>
+  <title>{{ content.ui.event_title_prefix_km }} {{ content.couple.groom_km }} & {{ content.couple.bride_km }}</title>
   <meta name="description" content="{{ content.invitation.greeting_km }} {{ content.couple.groom_km }} និង {{ content.couple.bride_km }}" />
   <link rel="stylesheet" href="/static/css/style.css" />
 </head>
@@ -26,12 +26,12 @@
       <h1 class="khmer-title" data-km="{{ content.hero.title_km }}" data-en="{{ content.hero.title_en }}">{{ content.hero.title_km }}</h1>
 
       <div class="names-row khmer-title">
-        <span>{{ content.couple.groom_km }}</span>
-        <span style="font-family: 'Noto Sans Khmer', sans-serif; font-size: 15px;">និង</span>
-        <span>{{ content.couple.bride_km }}</span>
+        <span data-km="{{ content.couple.groom_km }}" data-en="{{ content.couple.groom_en }}">{{ content.couple.groom_km }}</span>
+        <span style="font-family: 'Noto Sans Khmer', sans-serif; font-size: 15px;" data-km="{{ content.ui.names_conjunction_km }}" data-en="{{ content.ui.names_conjunction_en }}">{{ content.ui.names_conjunction_km }}</span>
+        <span data-km="{{ content.couple.bride_km }}" data-en="{{ content.couple.bride_en }}">{{ content.couple.bride_km }}</span>
       </div>
 
-      <p class="greeting khmer-title" data-km="{{ content.invitation.greeting_km }}" data-en="You are cordially invited">{{ content.invitation.greeting_km }}</p>
+      <p class="greeting khmer-title" data-km="{{ content.invitation.greeting_km }}" data-en="{{ content.invitation.greeting_en }}">{{ content.invitation.greeting_km }}</p>
 
       <div class="guest-frame khmer-title" role="img" aria-label="Guest name">
         <span id="guest-name">{{ guest_name or content.guest.default_name_km }}</span>
@@ -44,7 +44,7 @@
       <div class="scroll-indicator">
         <img src="/static/uploads/scroll.gif" alt="scroll down" />
         <div>
-          <div data-km="សូមអូសចុះក្រោម" data-en="Scroll down">សូមអូសចុះក្រោម</div>
+          <div data-km="{{ content.ui.scroll_hint_km }}" data-en="{{ content.ui.scroll_hint_en }}">{{ content.ui.scroll_hint_km }}</div>
         </div>
       </div>
     </section>
@@ -54,12 +54,12 @@
       {% if content.parents %}
       <div class="parents-row reveal">
         <div class="parents-col">
-          <div class="side-label">ឪពុកម្តាយកូនប្រុស</div>
+          <div class="side-label" data-km="{{ content.parents.groom_side_label_km }}" data-en="{{ content.parents.groom_side_label_en }}">{{ content.parents.groom_side_label_km }}</div>
           <div class="parent-name">{{ content.parents.groom_father_km }}</div>
           <div class="parent-name">{{ content.parents.groom_mother_km }}</div>
         </div>
         <div class="parents-col">
-          <div class="side-label">ឪពុកម្តាយកូនស្រី</div>
+          <div class="side-label" data-km="{{ content.parents.bride_side_label_km }}" data-en="{{ content.parents.bride_side_label_en }}">{{ content.parents.bride_side_label_km }}</div>
           <div class="parent-name">{{ content.parents.bride_father_km }}</div>
           <div class="parent-name">{{ content.parents.bride_mother_km }}</div>
         </div>
@@ -84,7 +84,7 @@
       </div>
       {% endif %}
 
-      <h2 class="reveal" data-km="{{ content.invitation.subgreeting_km }}" data-en="With great honor, we invite you">{{ content.invitation.subgreeting_km }}</h2>
+      <h2 class="reveal" data-km="{{ content.invitation.subgreeting_km }}" data-en="{{ content.invitation.subgreeting_en }}">{{ content.invitation.subgreeting_km }}</h2>
       <p class="invitation-body reveal">{{ content.invitation.body_km }}</p>
 
       {% if content.event.day_name_km %}
@@ -102,7 +102,7 @@
     <!-- ===== Countdown ===== -->
     <section>
       <div class="countdown-wrap reveal zoom">
-        <h2 data-km="ចំនួនថ្ងៃរាប់ថយក្រោយ" data-en="Counting down">ចំនួនថ្ងៃរាប់ថយក្រោយ</h2>
+        <h2 data-km="{{ content.ui.countdown_title_km }}" data-en="{{ content.ui.countdown_title_en }}">{{ content.ui.countdown_title_km }}</h2>
         <p>{{ content.event.date_km }} {{ content.event.time_km }}</p>
         <div class="countdown-grid" id="countdown" data-target="{{ content.event.datetime_iso }}">
           <div class="countdown-box"><span class="num" id="cd-days">០</span><span class="unit">ថ្ងៃ</span></div>
@@ -113,17 +113,18 @@
       </div>
       <button class="btn-gold reveal" id="add-calendar"
         data-datetime="{{ content.event.datetime_iso }}"
-        data-title="អាពាហ៍ពិពាហ៍ {{ content.couple.groom_km }} & {{ content.couple.bride_km }}"
-        data-location="{{ content.venue.name_km }}">
-        កត់ចូលក្នុងប្រតិទិនអ្នក
+        data-title="{{ content.ui.event_title_prefix_km }} {{ content.couple.groom_km }} & {{ content.couple.bride_km }}"
+        data-location="{{ content.venue.name_km }}"
+        data-km="{{ content.ui.add_calendar_km }}" data-en="{{ content.ui.add_calendar_en }}">
+        {{ content.ui.add_calendar_km }}
       </button>
     </section>
 
     <!-- ===== Schedule ===== -->
     {% if content.schedule and content.schedule|length > 0 %}
     <section id="schedule">
-      <h2 class="reveal" data-km="របៀបវារៈកម្មវិធី" data-en="Program Schedule">របៀបវារៈកម្មវិធី</h2>
-      <p class="schedule-subtitle reveal">កម្មវិធី {{ content.event.date_km }}</p>
+      <h2 class="reveal" data-km="{{ content.ui.schedule_title_km }}" data-en="{{ content.ui.schedule_title_en }}">{{ content.ui.schedule_title_km }}</h2>
+      <p class="schedule-subtitle reveal" data-km="{{ content.ui.schedule_subtitle_prefix_km }} {{ content.event.date_km }}" data-en="{{ content.ui.schedule_subtitle_prefix_en }} {{ content.event.date_km }}">{{ content.ui.schedule_subtitle_prefix_km }} {{ content.event.date_km }}</p>
       <div class="schedule-list">
         {% for item in content.schedule %}
         <div class="schedule-item reveal">
@@ -138,22 +139,23 @@
 
     <!-- ===== Location ===== -->
     <section id="location">
-      <h2 class="reveal" data-km="ទីតាំងកម្មវិធី" data-en="Venue">ទីតាំងកម្មវិធី</h2>
+      <h2 class="reveal" data-km="{{ content.ui.venue_title_km }}" data-en="{{ content.ui.venue_title_en }}">{{ content.ui.venue_title_km }}</h2>
       <p class="reveal">{{ content.venue.name_km }}</p>
       {% if content.venue.map_image %}
       <img class="map-frame reveal" style="object-fit:cover;" src="{{ content.venue.map_image }}" alt="Venue map" />
       {% endif %}
       <a class="btn-gold reveal" style="margin-top:16px; display:inline-flex;"
          href="{{ content.venue.map_link or 'https://www.google.com/maps?q=' + (content.venue.name_km | urlencode) }}"
-         target="_blank" rel="noopener noreferrer">
-        មើលក្នុង Google Map
+         target="_blank" rel="noopener noreferrer"
+         data-km="{{ content.ui.map_button_km }}" data-en="{{ content.ui.map_button_en }}">
+        {{ content.ui.map_button_km }}
       </a>
     </section>
 
     <!-- ===== Gallery ===== -->
     {% if gallery and gallery|length > 0 %}
     <section id="gallery">
-      <h2 class="reveal" data-km="កម្រងរូបភាព" data-en="Photo Gallery">កម្រងរូបភាព</h2>
+      <h2 class="reveal" data-km="{{ content.ui.gallery_title_km }}" data-en="{{ content.ui.gallery_title_en }}">{{ content.ui.gallery_title_km }}</h2>
       <div class="gallery-grid">
         {% for photo in gallery %}
         <img class="reveal" src="{{ photo.path }}" alt="Photo" loading="lazy" />
@@ -168,17 +170,17 @@
 
     <!-- ===== Thank you ===== -->
     <section>
-      <h2 class="reveal" data-km="{{ content.thanks.title_km }}" data-en="Thank You">{{ content.thanks.title_km }}</h2>
+      <h2 class="reveal" data-km="{{ content.thanks.title_km }}" data-en="{{ content.thanks.title_en }}">{{ content.thanks.title_km }}</h2>
       <p class="invitation-body reveal">{{ content.thanks.body_km }}</p>
     </section>
 
     <!-- ===== KHQR ===== -->
     {% if content.qr.usd_image %}
     <section id="khqr">
-      <h2 class="reveal" data-km="ចងដៃតាមរយៈ KHQR" data-en="Gift via KHQR">ចងដៃតាមរយៈ KHQR</h2>
+      <h2 class="reveal" data-km="{{ content.ui.khqr_title_km }}" data-en="{{ content.ui.khqr_title_en }}">{{ content.ui.khqr_title_km }}</h2>
       <div class="qr-toggle reveal">
         <button id="qr-usd-btn" class="active">USD</button>
-        <button id="qr-khr-btn">រៀល</button>
+        <button id="qr-khr-btn">{{ content.ui.khqr_riel_label_km }}</button>
       </div>
       <div class="qr-image-wrap reveal">
         <img id="qr-image" src="{{ content.qr.usd_image }}"
@@ -190,18 +192,18 @@
 
     <!-- ===== RSVP / Wishes ===== -->
     <section id="messages">
-      <h2 class="reveal" data-km="សារជូនពរ" data-en="Wishes">សារជូនពរ</h2>
+      <h2 class="reveal" data-km="{{ content.ui.wishes_title_km }}" data-en="{{ content.ui.wishes_title_en }}">{{ content.ui.wishes_title_km }}</h2>
       <div class="rsvp-card reveal">
-        <form id="rsvp-form">
+        <form id="rsvp-form" data-msg-required="{{ content.ui.rsvp_error_required_km }}" data-msg-failed="{{ content.ui.rsvp_error_failed_km }}">
           <input type="hidden" id="rsvp-status" name="status" value="attend" />
           <div class="rsvp-toggle">
-            <button type="button" id="rsvp-attend">✓ ចូលរួម</button>
-            <button type="button" id="rsvp-decline">✗ បដិសេធ</button>
+            <button type="button" id="rsvp-attend">{{ content.ui.rsvp_attend_km }}</button>
+            <button type="button" id="rsvp-decline">{{ content.ui.rsvp_decline_km }}</button>
           </div>
-          <input type="text" name="name" placeholder="ឈ្មោះអ្នក" required />
-          <textarea name="message" rows="4" placeholder="សារជូនពរ" required></textarea>
+          <input type="text" name="name" placeholder="{{ content.ui.rsvp_name_placeholder_km }}" required />
+          <textarea name="message" rows="4" placeholder="{{ content.ui.rsvp_message_placeholder_km }}" required></textarea>
           <div class="error-text" id="rsvp-error"></div>
-          <button type="submit" class="btn-gold" style="width:100%;">ផ្ញើសារ</button>
+          <button type="submit" class="btn-gold" style="width:100%;">{{ content.ui.rsvp_submit_km }}</button>
         </form>
       </div>
 
@@ -214,7 +216,7 @@
           </div>
           {% endfor %}
         {% else %}
-          <div class="empty-wishes" id="empty-wishes">មិនទាន់មានសារជូនពរ</div>
+          <div class="empty-wishes" id="empty-wishes" data-km="{{ content.ui.empty_wishes_km }}" data-en="{{ content.ui.empty_wishes_en }}">{{ content.ui.empty_wishes_km }}</div>
         {% endif %}
       </div>
     </section>
