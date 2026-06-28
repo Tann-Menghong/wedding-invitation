@@ -15,8 +15,6 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 STATIC_DIR = BASE_DIR / "static"
 DOCS_DIR = BASE_DIR / "docs"
 
-GITHUB_EDIT_URL = "https://github.com/tann-menghong/wedding-invitation/edit/main/data/content.json"
-
 PATH_REWRITES = {
     "/static/uploads/": "./img/",
     "/static/css/": "./css/",
@@ -43,7 +41,6 @@ def build():
         messages=[],
         guest_name=None,
         static_site=True,
-        github_edit_url=GITHUB_EDIT_URL,
     )
 
     for old, new in PATH_REWRITES.items():

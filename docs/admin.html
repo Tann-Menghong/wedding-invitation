@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin – Wedding Invitation</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body style="background:#f3f4f6;">
+
+  <div class="admin-login" id="login-view">
+    <h2 style="text-align:center;">🔐 Admin Login</h2>
+    <p style="font-size:13px; color:#666; line-height:1.5;">
+      This static site has no server, so the admin panel talks to GitHub directly
+      using a Personal Access Token. Create a
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">fine-grained token</a>
+      scoped to only the <code>wedding-invitation</code> repo with
+      <strong>Contents: Read and write</strong> permission, then paste it below.
+      The token is kept only in this browser tab's session storage and sent
+      directly to <code>api.github.com</code> — never anywhere else.
+    </p>
+    <form id="login-form">
+      <input type="password" id="pat-input" placeholder="GitHub Personal Access Token" required autocomplete="off" />
+      <button type="submit" style="width:100%;">Connect</button>
+    </form>
+    <div class="error-text" id="login-error"></div>
+    <p style="font-size:12px; color:#999; text-align:center; margin-top:16px;">
+      Prefer not to use a token?
+      <a href="https://github.com/tann-menghong/wedding-invitation/edit/main/data/content.json" target="_blank" rel="noopener noreferrer">Edit content.json directly on GitHub</a>.
+    </p>
+  </div>
+
+  <div class="admin-wrap" id="admin-view" style="display:none;">
+    <div class="admin-topbar">
+      <h2 style="margin:0;">Admin Dashboard</h2>
+      <button type="button" class="btn" id="disconnect-btn">Disconnect</button>
+    </div>
+    <div class="error-text" id="admin-error"></div>
+
+    <!-- Hero -->
+    <div class="admin-section">
+      <h3>Hero / Cover</h3>
+      <form class="content-form">
+        <label>Title (Khmer)</label>
+        <input type="text" name="hero.title_km" />
+        <label>Title (English)</label>
+        <input type="text" name="hero.title_en" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+      <hr />
+      <form class="upload-form" id="upload-hero">
+        <label>Hero background photo</label>
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload</button>
+      </form>
+      <img id="preview-hero" style="display:none; margin-top:10px; max-width:160px; border-radius:8px;" />
+      <hr />
+      <form class="upload-form" id="upload-music">
+        <label>Background music (mp3)</label>
+        <input type="file" name="file" accept="audio/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload</button>
+      </form>
+      <audio id="preview-music" controls style="display:none; margin-top:10px; width:100%;"></audio>
+    </div>
+
+    <!-- Couple -->
+    <div class="admin-section">
+      <h3>Couple</h3>
+      <form class="content-form">
+        <div class="admin-grid-2">
+          <div>
+            <label>Groom label (Khmer)</label>
+            <input type="text" name="couple.groom_label_km" />
+            <label>Groom name (Khmer)</label>
+            <input type="text" name="couple.groom_km" />
+            <label>Groom name (English)</label>
+            <input type="text" name="couple.groom_en" />
+          </div>
+          <div>
+            <label>Bride label (Khmer)</label>
+            <input type="text" name="couple.bride_label_km" />
+            <label>Bride name (Khmer)</label>
+            <input type="text" name="couple.bride_km" />
+            <label>Bride name (English)</label>
+            <input type="text" name="couple.bride_en" />
+          </div>
+        </div>
+        <label>Monogram (shown as a badge, e.g. "M & S")</label>
+        <input type="text" name="couple.monogram" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Parents -->
+    <div class="admin-section">
+      <h3>Parents</h3>
+      <form class="content-form">
+        <div class="admin-grid-2">
+          <div>
+            <label>Groom's side label (Khmer)</label>
+            <input type="text" name="parents.groom_side_label_km" />
+            <label>Groom's side label (English)</label>
+            <input type="text" name="parents.groom_side_label_en" />
+            <label>Groom's father (Khmer)</label>
+            <input type="text" name="parents.groom_father_km" />
+            <label>Groom's mother (Khmer)</label>
+            <input type="text" name="parents.groom_mother_km" />
+          </div>
+          <div>
+            <label>Bride's side label (Khmer)</label>
+            <input type="text" name="parents.bride_side_label_km" />
+            <label>Bride's side label (English)</label>
+            <input type="text" name="parents.bride_side_label_en" />
+            <label>Bride's father (Khmer)</label>
+            <input type="text" name="parents.bride_father_km" />
+            <label>Bride's mother (Khmer)</label>
+            <input type="text" name="parents.bride_mother_km" />
+          </div>
+        </div>
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Invitation text -->
+    <div class="admin-section">
+      <h3>Invitation Text</h3>
+      <form class="content-form">
+        <label>Greeting (Khmer)</label>
+        <input type="text" name="invitation.greeting_km" />
+        <label>Greeting (English)</label>
+        <input type="text" name="invitation.greeting_en" />
+        <label>Sub-greeting (Khmer)</label>
+        <input type="text" name="invitation.subgreeting_km" />
+        <label>Sub-greeting (English)</label>
+        <input type="text" name="invitation.subgreeting_en" />
+        <label>Invitation body (Khmer)</label>
+        <textarea name="invitation.body_km"></textarea>
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Default guest name -->
+    <div class="admin-section">
+      <h3>Default Guest Name</h3>
+      <form class="content-form">
+        <label>Shown when no guest name is in the link (?name=...)</label>
+        <input type="text" name="guest.default_name_km" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Event date/time + venue -->
+    <div class="admin-section">
+      <h3>Date, Time & Venue</h3>
+      <form class="content-form">
+        <label>Date (Khmer display)</label>
+        <input type="text" name="event.date_km" />
+        <label>Time (Khmer display)</label>
+        <input type="text" name="event.time_km" />
+        <label>Exact date/time (used for countdown + calendar) — format: YYYY-MM-DDTHH:MM:SS</label>
+        <input type="text" name="event.datetime_iso" />
+        <label>Save-the-date: day name (e.g. "ថ្ងៃ សៅរ៍")</label>
+        <input type="text" name="event.day_name_km" />
+        <div class="admin-grid-2">
+          <div>
+            <label>Save-the-date: day number (e.g. "២៦")</label>
+            <input type="text" name="event.day_number_km" />
+          </div>
+          <div>
+            <label>Save-the-date: short time (e.g. "ម៉ោង ៥ ល្ងាច")</label>
+            <input type="text" name="event.time_short_km" />
+          </div>
+        </div>
+        <label>Save-the-date: month + year (e.g. "ធ្នូ ២០២៦")</label>
+        <input type="text" name="event.month_year_km" />
+        <label>Venue name (Khmer)</label>
+        <input type="text" name="venue.name_km" />
+        <label>Google Maps link (optional, full URL)</label>
+        <input type="text" name="venue.map_link" />
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Schedule -->
+    <div class="admin-section">
+      <h3>Program Schedule</h3>
+      <div id="schedule-rows"></div>
+      <button type="button" class="btn" id="add-schedule-row" style="margin-top:10px;">+ Add item</button>
+      <br />
+      <button type="button" class="btn" id="save-schedule" style="margin-top:14px;">Save schedule</button>
+    </div>
+
+    <!-- Gallery -->
+    <div class="admin-section">
+      <h3>Gallery Photos</h3>
+      <form class="upload-form" id="upload-gallery">
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Add photo</button>
+      </form>
+      <div class="admin-gallery-grid" id="gallery-grid" style="margin-top:14px;"></div>
+    </div>
+
+    <!-- KHQR -->
+    <div class="admin-section">
+      <h3>KHQR Gift Codes</h3>
+      <form class="upload-form" id="upload-qr-usd">
+        <label>USD QR code image</label>
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload USD QR</button>
+      </form>
+      <img id="preview-qr-usd" style="display:none; margin-top:10px; max-width:120px; border-radius:8px;" />
+      <hr />
+      <form class="upload-form" id="upload-qr-khr">
+        <label>Riel (KHR) QR code image</label>
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload KHR QR</button>
+      </form>
+      <img id="preview-qr-khr" style="display:none; margin-top:10px; max-width:120px; border-radius:8px;" />
+    </div>
+
+    <!-- Map image fallback -->
+    <div class="admin-section">
+      <h3>Map Image (optional static fallback)</h3>
+      <form class="upload-form" id="upload-map">
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit" class="btn" style="margin-top:10px;">Upload</button>
+      </form>
+      <img id="preview-map" style="display:none; margin-top:10px; max-width:160px; border-radius:8px;" />
+    </div>
+
+    <!-- Thank you -->
+    <div class="admin-section">
+      <h3>Thank You Message</h3>
+      <form class="content-form">
+        <label>Title (Khmer)</label>
+        <input type="text" name="thanks.title_km" />
+        <label>Title (English)</label>
+        <input type="text" name="thanks.title_en" />
+        <label>Body (Khmer)</label>
+        <textarea name="thanks.body_km"></textarea>
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Static page labels -->
+    <div class="admin-section">
+      <h3>Static Page Labels</h3>
+      <p style="font-size:13px; color:#6b7280; margin-top:-6px;">Section headings, buttons, placeholders and hints shown across the page.</p>
+      <form class="content-form">
+        <div class="admin-grid-2">
+          <div>
+            <label>Event title prefix (used in browser tab + calendar)</label>
+            <input type="text" name="ui.event_title_prefix_km" />
+            <label>"and" between names (Khmer)</label>
+            <input type="text" name="ui.names_conjunction_km" />
+            <label>"and" between names (English)</label>
+            <input type="text" name="ui.names_conjunction_en" />
+            <label>Scroll-down hint (Khmer)</label>
+            <input type="text" name="ui.scroll_hint_km" />
+            <label>Scroll-down hint (English)</label>
+            <input type="text" name="ui.scroll_hint_en" />
+            <label>Countdown title (Khmer)</label>
+            <input type="text" name="ui.countdown_title_km" />
+            <label>Countdown title (English)</label>
+            <input type="text" name="ui.countdown_title_en" />
+            <label>Add-to-calendar button (Khmer)</label>
+            <input type="text" name="ui.add_calendar_km" />
+            <label>Add-to-calendar button (English)</label>
+            <input type="text" name="ui.add_calendar_en" />
+            <label>Schedule title (Khmer)</label>
+            <input type="text" name="ui.schedule_title_km" />
+            <label>Schedule title (English)</label>
+            <input type="text" name="ui.schedule_title_en" />
+            <label>Schedule subtitle prefix (Khmer)</label>
+            <input type="text" name="ui.schedule_subtitle_prefix_km" />
+            <label>Schedule subtitle prefix (English)</label>
+            <input type="text" name="ui.schedule_subtitle_prefix_en" />
+            <label>Venue title (Khmer)</label>
+            <input type="text" name="ui.venue_title_km" />
+            <label>Venue title (English)</label>
+            <input type="text" name="ui.venue_title_en" />
+            <label>Map button (Khmer)</label>
+            <input type="text" name="ui.map_button_km" />
+            <label>Map button (English)</label>
+            <input type="text" name="ui.map_button_en" />
+          </div>
+          <div>
+            <label>Gallery title (Khmer)</label>
+            <input type="text" name="ui.gallery_title_km" />
+            <label>Gallery title (English)</label>
+            <input type="text" name="ui.gallery_title_en" />
+            <label>KHQR title (Khmer)</label>
+            <input type="text" name="ui.khqr_title_km" />
+            <label>KHQR title (English)</label>
+            <input type="text" name="ui.khqr_title_en" />
+            <label>Riel currency button label (Khmer)</label>
+            <input type="text" name="ui.khqr_riel_label_km" />
+            <label>Wishes title (Khmer)</label>
+            <input type="text" name="ui.wishes_title_km" />
+            <label>Wishes title (English)</label>
+            <input type="text" name="ui.wishes_title_en" />
+            <label>RSVP "attending" button (Khmer)</label>
+            <input type="text" name="ui.rsvp_attend_km" />
+            <label>RSVP "not attending" button (Khmer)</label>
+            <input type="text" name="ui.rsvp_decline_km" />
+            <label>RSVP name field placeholder (Khmer)</label>
+            <input type="text" name="ui.rsvp_name_placeholder_km" />
+            <label>RSVP message field placeholder (Khmer)</label>
+            <input type="text" name="ui.rsvp_message_placeholder_km" />
+            <label>RSVP submit button (Khmer)</label>
+            <input type="text" name="ui.rsvp_submit_km" />
+            <label>RSVP error: missing fields (Khmer)</label>
+            <input type="text" name="ui.rsvp_error_required_km" />
+            <label>RSVP error: send failed (Khmer)</label>
+            <input type="text" name="ui.rsvp_error_failed_km" />
+            <label>Empty wishes wall message (Khmer)</label>
+            <input type="text" name="ui.empty_wishes_km" />
+            <label>Empty wishes wall message (English)</label>
+            <input type="text" name="ui.empty_wishes_en" />
+          </div>
+        </div>
+        <button type="submit" class="btn" style="margin-top:14px;">Save</button>
+      </form>
+    </div>
+
+    <!-- Guestbook messages -->
+    <div class="admin-section">
+      <h3>Guestbook Messages (<span id="messages-count">0</span>)</h3>
+      <p style="font-size:13px; color:#6b7280; margin-top:-6px;">Submitted on the live app, stored in data/messages.json.</p>
+      <div id="messages-list"></div>
+    </div>
+
+    <p style="font-size:12px; color:#999; text-align:center; margin-top:8px;">
+      Changes push straight to <code>main</code>; GitHub Actions rebuilds this site automatically
+      within about a minute. <a href="https://github.com/tann-menghong/wedding-invitation/actions" target="_blank" rel="noopener noreferrer">View build status</a>.
+    </p>
+  </div>
+
+  <div class="save-toast" id="save-toast">Saved!</div>
+
+  <script>
+    const OWNER = "tann-menghong";
+    const REPO = "wedding-invitation";
+    const BRANCH = "main";
+    const API_BASE = `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
+
+    const state = { content: {}, contentSha: null, gallery: [], gallerySha: null, messages: [], messagesSha: null };
+
+    function authHeaders() {
+      return {
+        Authorization: `Bearer ${sessionStorage.getItem("gh_pat")}`,
+        Accept: "application/vnd.github+json",
+      };
+    }
+
+    function b64EncodeUnicode(str) {
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) => String.fromCharCode(parseInt(p1, 16))));
+    }
+
+    function b64DecodeUnicode(str) {
+      return decodeURIComponent(
+        atob(str.replace(/\n/g, ""))
+          .split("")
+          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
+      );
+    }
+
+    async function ghGetFile(path) {
+      const res = await fetch(`${API_BASE}${path}?ref=${BRANCH}`, { headers: authHeaders() });
+      if (res.status === 404) return { sha: null, text: null };
+      if (!res.ok) throw new Error(`Could not read ${path} (${res.status})`);
+      const data = await res.json();
+      return { sha: data.sha, text: b64DecodeUnicode(data.content) };
+    }
+
+    async function ghGetSha(path) {
+      const res = await fetch(`${API_BASE}${path}?ref=${BRANCH}`, { headers: authHeaders() });
+      if (res.status === 404) return null;
+      if (!res.ok) throw new Error(`Could not check ${path} (${res.status})`);
+      return (await res.json()).sha;
+    }
+
+    async function ghPutRaw(path, base64Content, message, sha) {
+      const body = { message, content: base64Content, branch: BRANCH };
+      if (sha) body.sha = sha;
+      const res = await fetch(`${API_BASE}${path}`, {
+        method: "PUT",
+        headers: { ...authHeaders(), "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `Could not write ${path} (${res.status})`);
+      }
+      return (await res.json()).content.sha;
+    }
+
+    async function ghDeleteFile(path, message, sha) {
+      const res = await fetch(`${API_BASE}${path}`, {
+        method: "DELETE",
+        headers: { ...authHeaders(), "Content-Type": "application/json" },
+        body: JSON.stringify({ message, sha, branch: BRANCH }),
+      });
+      if (!res.ok) throw new Error(`Could not delete ${path} (${res.status})`);
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function getNested(obj, path) {
+      return path.split(".").reduce((o, k) => (o ? o[k] : undefined), obj);
+    }
+
+    function setNested(obj, path, value) {
+      const keys = path.split(".");
+      let cur = obj;
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (typeof cur[keys[i]] !== "object" || cur[keys[i]] === null) cur[keys[i]] = {};
+        cur = cur[keys[i]];
+      }
+      cur[keys[keys.length - 1]] = value;
+    }
+
+    function showToast(text) {
+      const t = document.getElementById("save-toast");
+      t.textContent = text || "Saved!";
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2200);
+    }
+
+    function showError(msg) {
+      document.getElementById("admin-error").textContent = msg || "";
+    }
+
+    async function saveContent() {
+      const text = JSON.stringify(state.content, null, 2);
+      state.contentSha = await ghPutRaw("data/content.json", b64EncodeUnicode(text), "Update content.json via admin panel", state.contentSha);
+    }
+
+    async function saveGallery() {
+      const text = JSON.stringify(state.gallery, null, 2);
+      state.gallerySha = await ghPutRaw("data/gallery.json", b64EncodeUnicode(text), "Update gallery.json via admin panel", state.gallerySha);
+    }
+
+    async function saveMessages() {
+      const text = JSON.stringify(state.messages, null, 2);
+      state.messagesSha = await ghPutRaw("data/messages.json", b64EncodeUnicode(text), "Update messages.json via admin panel", state.messagesSha);
+    }
+
+    function populateForm() {
+      document.querySelectorAll(".content-form [name]").forEach((el) => {
+        const val = getNested(state.content, el.name);
+        if (val !== undefined && val !== null) el.value = val;
+      });
+      setPreview("preview-hero", state.content.hero && state.content.hero.hero_image);
+      setPreview("preview-qr-usd", state.content.qr && state.content.qr.usd_image);
+      setPreview("preview-qr-khr", state.content.qr && state.content.qr.khr_image);
+      setPreview("preview-map", state.content.venue && state.content.venue.map_image);
+      const musicPath = state.content.hero && state.content.hero.background_music;
+      const musicEl = document.getElementById("preview-music");
+      if (musicPath) {
+        musicEl.src = "./img/" + musicPath.split("/").pop();
+        musicEl.style.display = "";
+      }
+    }
+
+    function setPreview(id, path) {
+      const el = document.getElementById(id);
+      if (path) {
+        el.src = "./img/" + path.split("/").pop();
+        el.style.display = "";
+      }
+    }
+
+    function renderSchedule() {
+      const wrap = document.getElementById("schedule-rows");
+      wrap.innerHTML = "";
+      (state.content.schedule || []).forEach((item) => addScheduleRow(item.time_km, item.title_km));
+    }
+
+    function addScheduleRow(time = "", title = "") {
+      const row = document.createElement("div");
+      row.className = "admin-row-item";
+      row.innerHTML = `<input type="text" class="sched-time" placeholder="Time" value="${escapeAttr(time)}" /><input type="text" class="sched-title" placeholder="Activity" value="${escapeAttr(title)}" /><button type="button" class="remove">✕</button>`;
+      row.querySelector(".remove").addEventListener("click", () => row.remove());
+      document.getElementById("schedule-rows").appendChild(row);
+    }
+
+    function escapeAttr(str) {
+      const div = document.createElement("div");
+      div.textContent = str || "";
+      return div.innerHTML.replace(/"/g, "&quot;");
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById("gallery-grid");
+      grid.innerHTML = "";
+      state.gallery.forEach(addGalleryThumb);
+    }
+
+    function addGalleryThumb(photo) {
+      const grid = document.getElementById("gallery-grid");
+      const div = document.createElement("div");
+      div.className = "thumb";
+      div.dataset.id = photo.id;
+      const img = document.createElement("img");
+      img.src = "./img/" + photo.filename;
+      const btn = document.createElement("button");
+      btn.textContent = "✕";
+      btn.addEventListener("click", () => deleteGalleryPhoto(photo.id));
+      div.appendChild(img);
+      div.appendChild(btn);
+      grid.appendChild(div);
+    }
+
+    async function deleteGalleryPhoto(id) {
+      if (!confirm("Delete this photo?")) return;
+      const photo = state.gallery.find((p) => p.id === id);
+      if (!photo) return;
+      try {
+        const path = `static/uploads/${photo.filename}`;
+        const sha = await ghGetSha(path);
+        if (sha) await ghDeleteFile(path, `Delete gallery photo ${photo.filename}`, sha);
+        state.gallery = state.gallery.filter((p) => p.id !== id);
+        await saveGallery();
+        document.querySelector(`.thumb[data-id="${id}"]`)?.remove();
+        showToast("Deleted");
+      } catch (err) {
+        showError(err.message);
+      }
+    }
+
+    function renderMessages() {
+      const list = document.getElementById("messages-list");
+      document.getElementById("messages-count").textContent = state.messages.length;
+      list.innerHTML = "";
+      if (state.messages.length === 0) {
+        list.innerHTML = "<p>No messages yet.</p>";
+        return;
+      }
+      state.messages.forEach((msg) => {
+        const div = document.createElement("div");
+        div.className = "admin-msg-item";
+        div.dataset.id = msg.id;
+        div.innerHTML = `<div><strong>${escapeAttr(msg.name)}</strong> — ${escapeAttr(msg.message)}<div class="meta">${escapeAttr(msg.date)} · ${escapeAttr(msg.status || "attend")}</div></div>`;
+        const btn = document.createElement("button");
+        btn.textContent = "✕";
+        btn.className = "admin-row-item remove";
+        btn.style = "background:#f43f5e;color:#fff;border:none;border-radius:6px;padding:6px 10px;";
+        btn.addEventListener("click", () => deleteMessage(msg.id));
+        div.appendChild(btn);
+        list.appendChild(div);
+      });
+    }
+
+    async function deleteMessage(id) {
+      if (!confirm("Delete this message?")) return;
+      try {
+        state.messages = state.messages.filter((m) => m.id !== id);
+        await saveMessages();
+        document.querySelector(`.admin-msg-item[data-id="${id}"]`)?.remove();
+        document.getElementById("messages-count").textContent = state.messages.length;
+        showToast("Deleted");
+      } catch (err) {
+        showError(err.message);
+      }
+    }
+
+    document.querySelectorAll(".content-form").forEach((form) => {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        for (const [key, value] of fd.entries()) setNested(state.content, key, value);
+        try {
+          showError("");
+          await saveContent();
+          showToast("Saved!");
+        } catch (err) {
+          showError(err.message);
+        }
+      });
+    });
+
+    document.getElementById("add-schedule-row").addEventListener("click", () => addScheduleRow());
+
+    document.getElementById("save-schedule").addEventListener("click", async () => {
+      const rows = document.querySelectorAll("#schedule-rows .admin-row-item");
+      state.content.schedule = Array.from(rows)
+        .map((row) => ({
+          time_km: row.querySelector(".sched-time").value.trim(),
+          title_km: row.querySelector(".sched-title").value.trim(),
+        }))
+        .filter((item) => item.time_km || item.title_km);
+      try {
+        showError("");
+        await saveContent();
+        showToast("Schedule saved!");
+      } catch (err) {
+        showError(err.message);
+      }
+    });
+
+    const SLOT_UPLOADS = [
+      { formId: "upload-hero", slot: "hero", key: "hero.hero_image", previewId: "preview-hero" },
+      { formId: "upload-music", slot: "music", key: "hero.background_music", previewId: "preview-music", audio: true },
+      { formId: "upload-qr-usd", slot: "qr_usd", key: "qr.usd_image", previewId: "preview-qr-usd" },
+      { formId: "upload-qr-khr", slot: "qr_khr", key: "qr.khr_image", previewId: "preview-qr-khr" },
+      { formId: "upload-map", slot: "map", key: "venue.map_image", previewId: "preview-map" },
+    ];
+
+    SLOT_UPLOADS.forEach(({ formId, slot, key, previewId, audio }) => {
+      const form = document.getElementById(formId);
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const file = form.querySelector("input[type=file]").files[0];
+        if (!file) return;
+        try {
+          showError("");
+          const ext = "." + file.name.split(".").pop();
+          const filename = `${slot}${ext}`;
+          const path = `static/uploads/${filename}`;
+          const b64 = await fileToBase64(file);
+          const sha = await ghGetSha(path);
+          await ghPutRaw(path, b64, `Upload ${filename} via admin panel`, sha);
+          setNested(state.content, key, `/static/uploads/${filename}`);
+          await saveContent();
+          const previewEl = document.getElementById(previewId);
+          previewEl.src = "./img/" + filename;
+          previewEl.style.display = "";
+          showToast("Uploaded!");
+          form.reset();
+        } catch (err) {
+          showError(err.message);
+        }
+      });
+    });
+
+    document.getElementById("upload-gallery").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const file = form.querySelector("input[type=file]").files[0];
+      if (!file) return;
+      try {
+        showError("");
+        const ext = "." + file.name.split(".").pop();
+        const id = Math.random().toString(16).slice(2, 10);
+        const filename = `gallery_${id}${ext}`;
+        const b64 = await fileToBase64(file);
+        await ghPutRaw(`static/uploads/${filename}`, b64, `Add gallery photo ${filename} via admin panel`, null);
+        const entry = { id, filename, path: `/static/uploads/${filename}`, uploaded_at: new Date().toISOString() };
+        state.gallery.push(entry);
+        await saveGallery();
+        addGalleryThumb(entry);
+        showToast("Uploaded!");
+        form.reset();
+      } catch (err) {
+        showError(err.message);
+      }
+    });
+
+    document.getElementById("disconnect-btn").addEventListener("click", () => {
+      sessionStorage.removeItem("gh_pat");
+      location.reload();
+    });
+
+    async function connect(token) {
+      sessionStorage.setItem("gh_pat", token);
+      const [contentRes, galleryRes, messagesRes] = await Promise.all([
+        ghGetFile("data/content.json"),
+        ghGetFile("data/gallery.json"),
+        ghGetFile("data/messages.json"),
+      ]);
+      if (contentRes.text === null) throw new Error("data/content.json not found in the repo.");
+      state.content = JSON.parse(contentRes.text);
+      state.contentSha = contentRes.sha;
+      state.gallery = galleryRes.text ? JSON.parse(galleryRes.text) : [];
+      state.gallerySha = galleryRes.sha;
+      state.messages = messagesRes.text ? JSON.parse(messagesRes.text) : [];
+      state.messagesSha = messagesRes.sha;
+
+      document.getElementById("login-view").style.display = "none";
+      document.getElementById("admin-view").style.display = "";
+      populateForm();
+      renderSchedule();
+      renderGallery();
+      renderMessages();
+    }
+
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const token = document.getElementById("pat-input").value.trim();
+      document.getElementById("login-error").textContent = "";
+      try {
+        await connect(token);
+      } catch (err) {
+        sessionStorage.removeItem("gh_pat");
+        document.getElementById("login-error").textContent = err.message;
+      }
+    });
+
+    (async function init() {
+      const saved = sessionStorage.getItem("gh_pat");
+      if (!saved) return;
+      try {
+        await connect(saved);
+      } catch (err) {
+        sessionStorage.removeItem("gh_pat");
+      }
+    })();
+  </script>
+</body>
+</html>
