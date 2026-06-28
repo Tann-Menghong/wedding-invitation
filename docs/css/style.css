@@ -627,6 +627,27 @@ section h2.left {
   animation: slideDown 1s ease-out forwards;
 }
 
+/* ---------- Site footer ---------- */
+.site-footer {
+  text-align: center;
+  padding: 18px 0 28px;
+}
+
+.admin-link {
+  display: inline-block;
+  font-size: 11px;
+  padding: 5px 12px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: var(--gold);
+  opacity: 0.45;
+  transition: opacity 0.2s ease;
+}
+
+.admin-link:hover {
+  opacity: 0.9;
+}
+
 /* ---------- Admin ---------- */
 .admin-wrap {
   max-width: 720px;
