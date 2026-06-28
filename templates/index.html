@@ -191,6 +191,7 @@
     {% endif %}
 
     <!-- ===== RSVP / Wishes ===== -->
+    {% if not static_site %}
     <section id="messages">
       <h2 class="reveal" data-km="{{ content.ui.wishes_title_km }}" data-en="{{ content.ui.wishes_title_en }}">{{ content.ui.wishes_title_km }}</h2>
       <div class="rsvp-card reveal">
@@ -220,11 +221,16 @@
         {% endif %}
       </div>
     </section>
+    {% endif %}
 
   </div>
 
   <footer class="site-footer">
+    {% if static_site %}
+    <a href="{{ github_edit_url }}" class="admin-link" target="_blank" rel="noopener noreferrer">⚙ Edit content</a>
+    {% else %}
     <a href="/admin" class="admin-link">⚙ Admin</a>
+    {% endif %}
   </footer>
 
   <script src="/static/js/main.js"></script>

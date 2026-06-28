@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initMusicToggle();
   initGalleryLightbox();
   initQrToggle();
+  initRsvpForm();
   initAddToCalendar();
 });
 
@@ -125,6 +126,76 @@ function initQrToggle() {
     khrBtn.classList.add("active");
     usdBtn.classList.remove("active");
   });
+}
+
+// ---------- RSVP / guestbook ----------
+function initRsvpForm() {
+  const form = document.getElementById("rsvp-form");
+  if (!form) return;
+  const attendBtn = document.getElementById("rsvp-attend");
+  const declineBtn = document.getElementById("rsvp-decline");
+  const statusInput = document.getElementById("rsvp-status");
+  const errorEl = document.getElementById("rsvp-error");
+
+  let status = "attend";
+  attendBtn.classList.add("selected", "attend");
+
+  attendBtn.addEventListener("click", () => {
+    status = "attend";
+    statusInput.value = status;
+    attendBtn.classList.add("selected", "attend");
+    declineBtn.classList.remove("selected", "decline");
+  });
+  declineBtn.addEventListener("click", () => {
+    status = "decline";
+    statusInput.value = status;
+    declineBtn.classList.add("selected", "decline");
+    attendBtn.classList.remove("selected", "attend");
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorEl.textContent = "";
+    const name = form.querySelector("[name='name']").value.trim();
+    const message = form.querySelector("[name='message']").value.trim();
+    if (!name || !message) {
+      errorEl.textContent = form.dataset.msgRequired;
+      return;
+    }
+    try {
+      const res = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, message, status }),
+      });
+      if (!res.ok) throw new Error("failed");
+      const data = await res.json();
+      appendWish(data.message);
+      form.reset();
+      statusInput.value = status;
+    } catch (err) {
+      errorEl.textContent = form.dataset.msgFailed;
+    }
+  });
+}
+
+function appendWish(msg) {
+  const wall = document.getElementById("wishes-wall");
+  const emptyState = document.getElementById("empty-wishes");
+  if (emptyState) emptyState.remove();
+  if (!wall) return;
+  const div = document.createElement("div");
+  div.className = "wish-item";
+  div.innerHTML = `<span class="wish-name">${escapeHtml(msg.name)}</span><div class="wish-text">${escapeHtml(
+    msg.message
+  )}</div>`;
+  wall.prepend(div);
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
 }
 
 // ---------- Add to calendar ----------

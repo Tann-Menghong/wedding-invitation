@@ -1,0 +1,35 @@
+name: Build static site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/content.json"
+      - "data/gallery.json"
+      - "static/uploads/**"
+      - "static/css/style.css"
+      - "static/js/main.js"
+      - "templates/index.html"
+      - "scripts/build_static.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install jinja2
+      - run: python scripts/build_static.py
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git diff --cached --quiet || git commit -m "Auto-build static site from content.json [skip ci]"
+          git push
