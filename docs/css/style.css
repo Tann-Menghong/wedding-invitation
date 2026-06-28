@@ -501,97 +501,6 @@ section h2.left {
   border-radius: 16px;
 }
 
-/* ---------- RSVP / messages ---------- */
-.rsvp-card {
-  background: rgba(255, 255, 255, 0.55);
-  border-radius: 16px;
-  padding: 24px 18px;
-  margin-top: 16px;
-}
-
-.rsvp-toggle {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.rsvp-toggle button {
-  padding: 12px 0;
-  border-radius: 999px;
-  border: none;
-  font-weight: 600;
-  background: #d8d8d8;
-  color: #555;
-  font-size: 14px;
-}
-
-.rsvp-toggle button.selected.attend {
-  background: var(--green-dark);
-  color: #fff;
-}
-
-.rsvp-toggle button.selected.decline {
-  background: var(--rose);
-  color: #fff;
-}
-
-.rsvp-card input,
-.rsvp-card textarea {
-  width: 100%;
-  border: none;
-  border-radius: 12px;
-  background: #e9e3d5;
-  padding: 12px 14px;
-  font-size: 14px;
-  color: var(--gold);
-  margin-bottom: 12px;
-  resize: none;
-}
-
-.rsvp-card input::placeholder,
-.rsvp-card textarea::placeholder {
-  color: rgba(176, 142, 79, 0.6);
-}
-
-.wishes-wall {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
-}
-
-.wish-item {
-  background: rgba(176, 142, 79, 0.1);
-  border-radius: 10px;
-  padding: 12px 14px;
-}
-
-.wish-item .wish-name {
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--gold);
-}
-
-.wish-item .wish-status {
-  font-size: 11px;
-  margin-left: 6px;
-  font-weight: 400;
-}
-
-.wish-item .wish-text {
-  font-size: 13px;
-  color: #555;
-  margin-top: 4px;
-}
-
-.empty-wishes {
-  text-align: center;
-  color: rgba(176, 142, 79, 0.6);
-  padding: 8px 0;
-}
-
 /* ---------- Animations ---------- */
 .reveal {
   opacity: 0;
@@ -812,12 +721,4 @@ section h2.left {
 
 .save-toast.show {
   opacity: 1;
-}
-
-.error-text {
-  color: #f43f5e;
-  font-size: 13px;
-  text-align: center;
-  margin-top: -6px;
-  margin-bottom: 10px;
 }
